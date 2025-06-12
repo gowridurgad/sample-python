@@ -13,7 +13,7 @@ runs:
       with:
         python-version : '3.9'
         cache: 'poetry'
-        cache-dependency-path: poetry.lock
+        cache-dependency-path: pyproject.toml
     - run: poetry install
       shell: bash
         
