@@ -1,9 +1,5 @@
 name: 'Composite Action Example'
 description: 'A composite action to checkout code and set up Node.js'
-inputs:
-  python-version:
-    description: 'Python version to use'
-    required: true
 runs:
   using: 'composite'
   steps:
@@ -12,7 +8,7 @@ runs:
     - name: Set up python
       uses: aparnajyothi-y/setup-python@enhance-cache-dependency-path
       with:
-        python-version : ${{ inputs.python-version }}
+        python-version : '3.11'
         cache: 'pipenv'
         cache-dependency-path: Pipfile
     - name: Install pipenv
