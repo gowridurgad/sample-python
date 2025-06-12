@@ -4,17 +4,16 @@ runs:
   using: 'composite'
   steps:
     - name: Checkout code
-      uses: actions/checkout@v4    
+      uses: actions/checkout@v4 
+    - name: Install poetry
+      run: pipx install poetry
     - name: Set up python
       uses: aparnajyothi-y/setup-python@enhance-cache-dependency-path
       with:
-        python-version : '3.11'
-        cache: 'pipenv'
-        cache-dependency-path: Pipfile
-    - name: Install pipenv
-      run: curl https://raw.githubusercontent.com/pypa/pipenv/master/get-pipenv.py | python
-      shell: bash
-    - run: pipenv install
+        python-version : '3.9'
+        cache: 'poetry'
+        cache-dependency-path: poetry.lock
+    - run: poetry install
       shell: bash
         
         
