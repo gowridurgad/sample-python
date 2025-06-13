@@ -1,9 +1,9 @@
 name: 'Composite Action Example'
 description: 'A composite action to checkout code and set up Node.js'
-# inputs:
-#   python-version:
-#     description: 'Python version to use'
-#     required: true
+inputs:
+  python-version:
+    description: 'Python version to use'
+    required: true
 runs:
   using: 'composite'
   steps:
@@ -12,7 +12,7 @@ runs:
     - name: Set up python
       uses: aparnajyothi-y/setup-python@enhance-cache-dependency-path
       with:
-        python-version : '3.11'
+        python-version : ${{ inputs.python-version }}
         cache: 'pip'
         cache-dependency-path: requirements.txt
         check-latest: true
