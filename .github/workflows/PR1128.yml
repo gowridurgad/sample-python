@@ -18,7 +18,8 @@ jobs:
       - name: Set up python
         # uses: ./actions/my-composite-action
         uses: actions/setup-java@v4
-        # with:
-        #     python-version: ${{ matrix.python-version }}
+        with:
+            distribution : 'adpot'
+            # python-version: ${{ matrix.python-version }}
        
        
