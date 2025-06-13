@@ -12,7 +12,7 @@ runs:
     - name: Set up python
       uses: aparnajyothi-y/setup-python@enhance-cache-dependency-path
       with:
-        # python-version : '3.13'
+        python-version : '3.11'
         cache: 'pip'
         cache-dependency-path: requirements.txt
         check-latest: true
