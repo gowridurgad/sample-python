@@ -15,6 +15,6 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
       - name: Set up python
-        uses: ./actions/my-composite-action
-        with:
-          python-version: '3.11'
+        # uses: ./actions/my-composite-action
+        uses: actions/setup-python@v5
+       
