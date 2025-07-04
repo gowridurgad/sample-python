@@ -11,7 +11,7 @@ runs:
       uses: actions/checkout@v4   
   
     - name: Set up python
-      uses: aparnajyothi-y/setup-python@enhance-cache-dependency-path
+      uses: actions/setup-python@main
       with:
         # python-version : ${{ inputs.python-version }}
         python-version : '3.11' 
