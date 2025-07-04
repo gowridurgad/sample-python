@@ -7,7 +7,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
       - name: Create file outside workspace
-        run: echo "testing" > /tmp/requirements.txt
+        run: echo "pytest" > /tmp/requirements.txt
      
       - name: Setup Python
         uses: actions/setup-python@v5
