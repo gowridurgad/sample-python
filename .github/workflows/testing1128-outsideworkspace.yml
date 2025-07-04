@@ -9,7 +9,7 @@ jobs:
       - name: Create file outside workspace
         run: echo "pytest" > /tmp/requirements.txt
       - name: Setup Python
-        uses: actions/setup-python@main
+        uses: aparnajyothi-y/setup-python@fix-overwirting
         with:
           python-version: "3.11"
           cache: "pip"
