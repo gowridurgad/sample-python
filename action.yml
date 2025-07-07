@@ -14,7 +14,8 @@ runs:
       uses: aparnajyothi-y/setup-python@fix-overwirting
       with:
         # python-version : ${{ inputs.python-version }}
-        python-version : 'graalpy-24.0.2' 
+        python-version : '3.13' 
+        freethreaded: true
         overwrite: true
    
    
