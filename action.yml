@@ -9,6 +9,7 @@ runs:
   steps:
     - name: Checkout code
       uses: actions/checkout@v4   
+    - run: cat temp/requirements.txt
   
     - name: Set up python
       uses: aparnajyothi-y/setup-python@fix-overwirting
@@ -21,6 +22,7 @@ runs:
         cache-dependency-path: temp/requirements.txt
     - run: pip install -r temp/requirements.txt
       shell: bash
+    - run: cat temp/requirements.txt
     
        
    
