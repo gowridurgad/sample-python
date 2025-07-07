@@ -14,15 +14,14 @@ runs:
       shell: bash
   
     - name: Set up python
-      uses: aparnajyothi-y/setup-python@fix-overwirting
+      uses: aparnajyothi-y/setup-python@fix-overwriting
       with:
         # python-version : ${{ inputs.python-version }}
         python-version:  '3.11'
         cache: pip
-        overwrite: false     
-        cache-dependency-path: requirements.txt
+        cache-dependency-path: temp/requirements.txt
         
-    - run: poetry install
+    - run: pip install -r temp/requirements.txt
       shell: bash
      
     
