@@ -14,9 +14,8 @@ runs:
       uses: aparnajyothi-y/setup-python@fix-overwirting
       with:
         # python-version : ${{ inputs.python-version }}
-        python-version:  '3.13'
+        python-version:  '>=3.9 <3.14'
         cache: pip
-        freethreaded: true
         overwrite: true
         cache-dependency-path: temp/requirements.txt
     - run: pip install -r temp/requirements.txt
