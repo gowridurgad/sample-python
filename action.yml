@@ -8,22 +8,23 @@ runs:
   using: 'composite'
   steps:
     - name: Checkout code
-      uses: actions/checkout@v4   
+      uses: actions/checkout@v4  
+    - name: Install poetry
+      run: pipx install poetry
+      shell: bash
   
     - name: Set up python
       uses: aparnajyothi-y/setup-python@fix-overwirting
       with:
         # python-version : ${{ inputs.python-version }}
         python-version:  '3.11'
-        cache: pipenv
+        cache: poetry
         overwrite: true      
-        cache-dependency-path: Pipfile
+        cache-dependency-path: pyproject.toml
         
-    - name: Install pipenv
-      run: curl https://raw.githubusercontent.com/pypa/pipenv/master/get-pipenv.py | python
+    - run: poetry install
       shell: bash
-    - run: pipenv install
-      shell: bash
+     
     
        
    
