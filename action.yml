@@ -9,7 +9,6 @@ runs:
   steps:
     - name: Checkout code
       uses: actions/checkout@v4   
-    - run: cat temp/requirements.txt
   
     - name: Set up python
       uses: aparnajyothi-y/setup-python@fix-overwirting
