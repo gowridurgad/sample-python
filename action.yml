@@ -19,7 +19,7 @@ runs:
         check-latest: true
         overwrite: true
         cache-dependency-path: temp/requirements.txt
-    - run: pip install -r temp/requirements.txt'
+    - run: pip install -r temp/requirements.txt
       shell: bash
     
        
