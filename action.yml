@@ -16,8 +16,7 @@ runs:
         # python-version : ${{ inputs.python-version }}
         python-version : '3.11' 
         overwrite: true
-    - run: pip  install  -r temp/requirements.txt
-      shell: bash
+   
         
    
    
