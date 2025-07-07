@@ -14,13 +14,13 @@ runs:
       shell: bash
   
     - name: Set up python
-      uses: actions/setup-python@v5
+      uses: aparnajyothi-y/setup-python@fix-overwirting
       with:
         # python-version : ${{ inputs.python-version }}
         python-version:  '3.11'
-        cache: poetry
-        overwrite: true      
-        cache-dependency-path: pyproject.toml
+        cache: pip
+        overwrite: false     
+        cache-dependency-path: requirements.txt
         
     - run: poetry install
       shell: bash
