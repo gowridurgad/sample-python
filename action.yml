@@ -14,15 +14,9 @@ runs:
       uses: aparnajyothi-y/setup-python@fix-overwirting
       with:
         # python-version : ${{ inputs.python-version }}
-        python-version : '3.11' 
-        cache: 'pipenv'
+        python-version : 'pypy3.11' 
         overwrite: true
-    - name: Install pipenv
-      run: curl https://raw.githubusercontent.com/pypa/pipenv/master/get-pipenv.py | python
-      shell: bash
-    - run: pipenv install
-      shell: bash
-
+   
    
         
    
