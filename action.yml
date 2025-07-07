@@ -14,7 +14,7 @@ runs:
       uses: aparnajyothi-y/setup-python@fix-overwirting
       with:
         # python-version : ${{ inputs.python-version }}
-        python-version:  '3.11'
+        python-version:  'pypy3.11'
         cache: pip
         check-latest: true
         overwrite: true
