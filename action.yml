@@ -15,14 +15,15 @@ runs:
       with:
         # python-version : ${{ inputs.python-version }}
         python-version:  '3.11'
-        cache: pip
-        overwrite: true
-        update-environment: false
-        cache-dependency-path: temp/requirements.txt
+        cache: pipenv
+        overwrite: true      
+        cache-dependency-path: Pipfile.lock
         
-    - run: pip install -r temp/requirements.txt
+    - name: Install pipenv
+      run: curl https://raw.githubusercontent.com/pypa/pipenv/master/get-pipenv.py | python
       shell: bash
-  
+    - run: pipenv install
+      shell: bash
     
        
    
