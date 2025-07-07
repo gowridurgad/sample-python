@@ -15,7 +15,14 @@ runs:
       with:
         # python-version : ${{ inputs.python-version }}
         python-version : '3.11' 
+        cache: 'pipenv'
         overwrite: true
+    - name: Install pipenv
+      run: curl https://raw.githubusercontent.com/pypa/pipenv/master/get-pipenv.py | python
+      shell: bash
+    - run: pipenv install
+      shell: bash
+
    
         
    
