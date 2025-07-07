@@ -17,7 +17,7 @@ runs:
         python-version:  '3.11'
         cache: pipenv
         overwrite: true      
-        cache-dependency-path: Pipfile.lock
+        cache-dependency-path: Pipfile
         
     - name: Install pipenv
       run: curl https://raw.githubusercontent.com/pypa/pipenv/master/get-pipenv.py | python
