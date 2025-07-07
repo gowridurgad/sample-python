@@ -14,10 +14,12 @@ runs:
       uses: aparnajyothi-y/setup-python@fix-overwirting
       with:
         # python-version : ${{ inputs.python-version }}
-        python-version:  '3.14.0-beta.1'
+        python-version:  '3.14'
         cache: pip
         overwrite: true
+        allow-prereleases: true
         cache-dependency-path: temp/requirements.txt
+        
     - run: pip install -r temp/requirements.txt
       shell: bash
   
