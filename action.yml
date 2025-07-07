@@ -14,8 +14,7 @@ runs:
       uses: aparnajyothi-y/setup-python@fix-overwirting
       with:
         # python-version : ${{ inputs.python-version }}
-        python-version : '3.13' 
-        freethreaded: true
+        python-version : '3.11' 
         overwrite: true
    
    
