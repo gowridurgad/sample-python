@@ -15,7 +15,7 @@ jobs:
         uses: aparnajyothi-y/setup-python@temp-dir-#361
         with:
       
-            python-version:  '3.13.0-alpha - 3.13.0'
+            python-version:  '3.x'
             cache: pip
             cache-dependency-path: requirements.txt  
             freethreaded: true
