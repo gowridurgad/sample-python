@@ -18,13 +18,10 @@ runs:
       with:
         # python-version : ${{ inputs.python-version }}
         python-version:  '3.13'
-        cache: pipenv
-        cache-dependency-path: Pipfile
+        cache: pip
+        cache-dependency-path: requirements.txt
         freethreaded: true
-    - name: Install pipenv
-      run: curl https://raw.githubusercontent.com/pypa/pipenv/master/get-pipenv.py | python
-      shell: bash
-    - run: pipenv install
+    - run: pip install 
       shell: bash
          
 
