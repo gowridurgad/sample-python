@@ -13,18 +13,18 @@ runs:
    
   
     - name: Set up python
-      uses: aparnajyothi-y/setup-python@temp-dir-#361
+      # uses: aparnajyothi-y/setup-python@temp-dir-#361
       # uses: priya-kinthali/setup-python@sample-361
+      uses: gowridurgad/setup-python@pip-install
       with:
         # python-version : ${{ inputs.python-version }}
         python-version:  '3.11'
         cache: pip
+        pip-install: -r requirements.txt
         cache-dependency-path: requirements.txt
-        update-environment: false
        
-        
-    - run: pip install -r ${{ github.action_path }}/requirements.txt
-      shell: bash
+       
+
          
 
    
