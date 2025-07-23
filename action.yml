@@ -13,9 +13,9 @@ runs:
    
   
     - name: Set up python
-      # uses: aparnajyothi-y/setup-python@temp-dir-#361
+      uses: aparnajyothi-y/setup-python@temp-dir-#361
       # uses: priya-kinthali/setup-python@sample-361
-      uses: gowridurgad/setup-python@pip-install
+      # uses: gowridurgad/setup-python@pip-install
       # uses: actions/setup-python@v5
       with:
         # python-version : ${{ inputs.python-version }}
