@@ -12,8 +12,8 @@ jobs:
             target: x64
           - runner: windows-latest
             target: x86
-          - runner: windows-latest
-            target: arm64 # Note: not aarch64 unlike linux and macos      
+          - runner: windows-11-arm
+            target: arm64 
        
     steps:
       - name: Checkout code
