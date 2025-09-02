@@ -19,6 +19,11 @@ jobs:
   
       - name: Install dependencies (no-root, sync)
         run: poetry install --no-root --sync
+
+      - name: Install dependencies (no-root)
+        run: poetry install --no-root
+
+      - name: Sync dependencies
+        run: poetry sync
       
-      - name: Check Poetry Python version
-        run: poetry env info
+    
