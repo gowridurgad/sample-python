@@ -15,6 +15,8 @@ jobs:
         with:
           python-version: '3.13'
           cache: 'poetry'
+      - name: Install system dependencies
+        run: sudo apt-get update && sudo apt-get install -y libopenblas-dev
     
 
       - name: Sync dependencies
