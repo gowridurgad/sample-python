@@ -15,15 +15,12 @@ jobs:
         with:
           python-version: '3.13'
           cache: 'poetry'
-      
-  
-      - name: Install dependencies (no-root, sync)
-        run: poetry install --no-root --sync
-
-      - name: Install dependencies (no-root)
-        run: poetry install --no-root
+    
 
       - name: Sync dependencies
         run: poetry sync
+
+      - name: Run tox
+        run: tox 
       
     
