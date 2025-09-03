@@ -19,7 +19,9 @@ jobs:
 
       - name: Sync dependencies
         run: poetry sync
-
+        
+      - name: Install tox
+        run: pip install tox
       - name: Run tox
         run: tox 
       
