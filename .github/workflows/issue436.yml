@@ -1,11 +1,11 @@
-name: run tests
+name: run tests#1187
 
 on: 
   workflow_dispatch:
 
 jobs:
   build:
-    runs-on: ubuntu-latest
+    runs-on: windows-latest
    
 
     steps:
@@ -15,7 +15,8 @@ jobs:
       - name: Set up Python 
         uses: actions/setup-python@v5
         with:
-          python-version: "3.9"
-          cache: "poetry"
+          python-version: "3.13.5"
+          architecture: arm64
+         
 
      
