@@ -16,6 +16,10 @@ jobs:
         uses: actions/setup-python@v5
         with:
           python-version: "3.13.5"
+      - name: Show Python versions in hosted tool cache
+        run: |
+          echo "=== Toolcache Python directories ==="
+          Get-ChildItem -Path "C:\hostedtoolcache\windows\Python" -Recurse | ForEach-Object { $_.FullName }
           
          
 
