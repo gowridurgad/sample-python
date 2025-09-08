@@ -12,16 +12,11 @@ jobs:
       - uses: actions/checkout@v4
         
 
-      # - name: Set up Python 
-      #   uses: actions/setup-python@v5
-      #   with:
-      #     python-version: "3.12"
+      - name: Set up Python 
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.13"
           
-      - name: Show Python .exe files in hosted tool cache
-        run: |
-          echo "=== Toolcache Python .exe files ==="
-          Get-ChildItem -Path "C:\hostedtoolcache\windows\Python" -Recurse -Filter *.exe | ForEach-Object { $_.FullName }
-          
-         
+     
 
      
