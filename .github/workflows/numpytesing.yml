@@ -1,0 +1,21 @@
+name: Numpy
+
+on:
+  workflow_dispatch:
+
+jobs:
+  Build:
+    runs-on: macos-latest
+       
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v5
+      - name: Setup python
+        uses: actions/setup-python@v6
+        with:
+          python-version: 'pypy-3.9-v7.x'
+          cache: 'pip'
+      - name: Install dependencies
+        run: pip install numpy pandas requests
+          
+            
