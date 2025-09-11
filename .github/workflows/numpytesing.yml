@@ -18,8 +18,7 @@ jobs:
       
  
 
-      - name: Ensure compatible setuptools for hpy
-        run: python -m pip install "setuptools>=64.0"
+    
 
       - name: Install numpy (from wheel, not source)
         run: pip -m pip install "numpy<1.25"
