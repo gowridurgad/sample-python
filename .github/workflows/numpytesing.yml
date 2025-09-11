@@ -17,7 +17,6 @@ jobs:
           cache: 'pip'
       - name: Upgrade setuptools and pip
         run: pip install --upgrade pip setuptools
-      - name: Install dependencies
-        run: pip install numpy pandas requests
-          
+      - name: Upgrade setuptools and pip
+        run: pip install --upgrade pip setuptools==68.2.2
             
