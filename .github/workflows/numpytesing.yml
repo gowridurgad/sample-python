@@ -15,8 +15,9 @@ jobs:
         with:
           python-version: 'pypy-3.9-v7.x'
           cache: 'pip'
-      - name: Upgrade setuptools and pip
-        run: pip install --upgrade pip setuptools
+  
       - name: Upgrade setuptools and pip
         run: pip install --upgrade pip setuptools==68.2.2
+      - name: Install dependencies
+        run: pip install numpy pandas requests
             
