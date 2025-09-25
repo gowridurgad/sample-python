@@ -1,4 +1,4 @@
-name: testingfr#79
+name: Testing Pip install
 on:
   workflow_dispatch:
 jobs:
@@ -10,10 +10,11 @@ jobs:
         os: [windows-latest, ubuntu-latest, macos-latest, macos-13]       
     steps:
       - name: Checkout code
-        uses: actions/checkout@v4 
+        uses: actions/checkout@v5 
       - name: Set up python
-        uses: gowridurgad/setup-python@pip-install-testcases
+        uses: gowridurgad/setup-python@pip-install-input
         with:
+      
             python-version:  '3.11'
             cache: pip
             cache-dependency-path: requirements.txt 
