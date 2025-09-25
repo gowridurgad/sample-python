@@ -10,7 +10,7 @@ jobs:
         os: [windows-latest, ubuntu-latest, macos-latest, macos-13]       
     steps:
       - name: Checkout code
-        uses: actions/checkout@v5 
+        uses: actions/checkout@v4
       - name: Set up python
         uses: gowridurgad/setup-python@pip-install-input
         with:
