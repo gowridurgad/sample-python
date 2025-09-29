@@ -19,4 +19,4 @@ jobs:
             python-version:  '3.11'
             pip-version: 24
             cache: pip
-            pip-install: Pipfile
+            pip-install: requirements.txt
