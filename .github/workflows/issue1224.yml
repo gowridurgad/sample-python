@@ -1,0 +1,20 @@
+name: isssue1224
+on: workflow_dispatch
+tests:
+  name: Unit tests and coverage
+  runs-on: ubuntu-latest
+
+  container:
+    image: custom-image-based-on-ubuntu22
+    options: --entrypoint /bin/bash
+
+  steps:
+    - uses: actions/checkout@v4
+    - uses: actions/setup-python@v5
+      with:
+        python-version: '3.12'
+    - run: |
+        python -m venv /env
+        . /env/bin/activate
+        pip install --upgrade pip
+        pip install -r requirements.txt
