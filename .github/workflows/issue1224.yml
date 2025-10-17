@@ -1,6 +1,7 @@
 name: isssue1224
 on: workflow_dispatch
-tests:
+jobs:
+ tests:
   name: Unit tests and coverage
   runs-on: ubuntu-latest
 
