@@ -1,4 +1,4 @@
-name: testing#1410
+name: CI
 
 on:
   workflow_dispatch:
