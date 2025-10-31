@@ -1,0 +1,22 @@
+{
+  "name": "@gowridurgad/testinggowri",
+  "version": "1.0.0",
+  "description": "Your package description",
+  "main": "index.js",
+  "repository": "git://github.com/gowridurgad/test4.git",
+  "author": "gowridurgad",
+  "license": "ISC",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "engines": {
+    "node": ">=18.0.0",
+    "npm": "^11.0.0"
+  },
+  "devEngines": {
+    "packageManager": {
+      "name": "npm",
+      "version": "^11.5.1"
+    }
+  }
+}
