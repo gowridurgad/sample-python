@@ -29,7 +29,7 @@ jobs:
 
       - name: Setup Python
         # uses: actions/setup-python@v6
-        uses: gowridurgad/setup-python@rootuser-testing
+        uses: lmvysakh/setup-python@rootuser_warning_fix
         with:
           python-version: ${{ matrix.python }}
           cache: 'pip'
