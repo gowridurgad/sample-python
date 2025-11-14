@@ -45,9 +45,9 @@ jobs:
       image: ${{ matrix.container_image }}
     steps:
       - uses: actions/checkout@v4
-      - name: Install prerequisites (lsb-release, curl, etc.)
-        run: |
-           brew install lsb-release curl
+      # - name: Install prerequisites (lsb-release, curl, etc.)
+      #   run: |
+      #      brew install lsb-release curl
       # - name: Fake /etc/lsb-release (if needed)
       #   run: |
       #     if [ ! -f /etc/lsb-release ]; then
