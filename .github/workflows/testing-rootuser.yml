@@ -40,7 +40,7 @@ jobs:
     strategy:
       matrix:
         # container_image: [ubuntu:22.04, ubuntu:24.04]
-        python_version: [3.11.6, 3.10.13, 3.9.18]
+        python_version: [3.11.6]
     container:
       image: ${{ matrix.container_image }}
     steps:
@@ -68,7 +68,7 @@ jobs:
     strategy:
       matrix:
         # container_image: [ubuntu:22.04, ubuntu:24.04]
-        python_version: [3.11.6, 3.10.13, 3.9.18]
+        python_version: [3.11.6]
     container:
       image: ${{ matrix.container_image }}
     steps:
