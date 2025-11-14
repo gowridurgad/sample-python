@@ -17,6 +17,6 @@ jobs:
         with:
       
             python-version:  '3.11'
-            cache: pip
-      - run: pip install pyproject.toml
+            architecture: 'ppc64le'
+   
            
