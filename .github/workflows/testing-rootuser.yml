@@ -47,8 +47,7 @@ jobs:
       - uses: actions/checkout@v4
       - name: Install prerequisites (lsb-release, curl, etc.)
         run: |
-          apt-get update
-          apt-get install -y lsb-release curl
+           brew install lsb-release curl
       # - name: Fake /etc/lsb-release (if needed)
       #   run: |
       #     if [ ! -f /etc/lsb-release ]; then
@@ -76,8 +75,7 @@ jobs:
       - uses: actions/checkout@v4
       - name: Install prerequisites (lsb-release, curl, etc.)
         run: |
-          apt-get update
-          apt-get install -y lsb-release curl
+          choco install curl
       # - name: Fake /etc/lsb-release (if needed)
       #   run: |
       #     if [ ! -f /etc/lsb-release ]; then
