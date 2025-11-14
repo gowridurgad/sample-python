@@ -3,17 +3,17 @@ on:
   workflow_dispatch:
 jobs:
   build:
-    runs-on: ${{ matrix.os }}
-    strategy:
-      fail-fast: false
-      matrix:
-        os: [windows-2025, ubuntu-latest, macos-latest, macos-13]       
+    runs-on: ubuntu-24.04-ppc64le
+    # strategy:
+    #   fail-fast: false
+    #   matrix:
+    #     os: [windows-2025, ubuntu-latest, macos-latest, macos-13]       
     steps:
       - name: Checkout code
         uses: actions/checkout@v4 
       - name: Set up python
         # uses: actions/setup-python@main
-        uses: actions/setup-python@main
+        uses: actions/setup-python@v6
         with:
       
             python-version:  '3.11'
