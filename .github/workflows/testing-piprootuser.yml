@@ -8,7 +8,7 @@ jobs:
   test1:
     runs-on: windows-latest
 
-      env:
+    env:
         PIP_ROOT_USER_ACTION: ignore
     
     strategy:
