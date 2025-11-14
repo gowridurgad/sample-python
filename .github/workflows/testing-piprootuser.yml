@@ -1,0 +1,34 @@
+name: Test 1217 error - container
+on:
+
+  workflow_dispatch:
+jobs:
+  test1:
+    runs-on: ubuntu-24.04
+    container:
+      image: python
+      # env:
+      #   PIP_ROOT_USER_ACTION: ignore
+    
+    strategy:
+      matrix:
+        python: [3.11.6]
+    steps:
+      - uses: actions/checkout@v4
+      # - name: Install lsb-release
+      #   run: |
+      #     apt-get update
+      #     apt-get install -y lsb-release
+      # - name: Create /etc/lsb-release
+      #   run: |
+      #     echo "DISTRIB_RELEASE=22.04" | tee -a /etc/lsb-release
+      # - name: Change ownership of /github/home
+      #   run:  chown -R $(whoami) /github/home
+
+      - name: Setup Python
+        uses: actions/setup-python@v6
+        # uses: lmvysakh/setup-python@rootuser_warning_fix
+        with:
+          python-version: ${{ matrix.python }}
+          cache: 'pip'
+          cache-dependency-path: 'requirements.txt'
