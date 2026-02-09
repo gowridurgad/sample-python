@@ -10,15 +10,15 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v6
 
-      - name: Clear cache
-        run: |
-          mv "${{ runner.tool_cache }}" "${{ runner.tool_cache }}.old"
-          mkdir -p "${{ runner.tool_cache }}"
+      # - name: Clear cache
+      #   run: |
+      #     mv "${{ runner.tool_cache }}" "${{ runner.tool_cache }}.old"
+      #     mkdir -p "${{ runner.tool_cache }}"
 
       - name: Set up python
         uses: actions/setup-python@v6
         with:
-          python-version: '3.15'
+          python-version: '3.14'
     
 
     
