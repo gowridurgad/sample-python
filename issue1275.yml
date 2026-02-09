@@ -1,0 +1,19 @@
+name: issue#1275
+on:
+  workflow_dispatch:
+jobs:
+  build:
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest]        
+       
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v5
+      - name: Set up python
+        uses: actions/setup-python@v6
+        with:
+           python-version: "3.x"
+         
