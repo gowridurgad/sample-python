@@ -9,7 +9,10 @@ jobs:
    
 
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
+      - name: Set path for Python setup step
+        shell: bash
+        run: echo "/usr/bin" >> $GITHUB_PATH
         
 
       - name: Set up Python 
