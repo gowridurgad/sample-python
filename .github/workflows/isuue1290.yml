@@ -10,6 +10,10 @@ jobs:
 
     steps:
       - uses: actions/checkout@v5
+      - name: Prepare hostedtoolcache (rare, not recommended)
+        run: |
+          sudo mkdir -p /Users/runner/hostedtoolcache
+          sudo chown $(whoami):$(id -gn) /Users/runner/hostedtoolcache
 
       - name: Set up Python 
         uses: actions/setup-python@v6
