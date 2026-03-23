@@ -1,0 +1,21 @@
+name: issue1290
+
+on: 
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: self-hosted
+   
+
+    steps:
+      - uses: actions/checkout@v4
+        
+
+      - name: Set up Python 
+        uses: actions/setup-python@v6
+        with:
+          python-version: "3.14"
+         
+          
+     
