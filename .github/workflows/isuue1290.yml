@@ -15,6 +15,12 @@ jobs:
           sudo mkdir -p /Users/runner/hostedtoolcache
           sudo chown $(whoami):$(id -gn) /Users/runner/hostedtoolcache
 
+      - shell: bash
+        run: |
+           echo "PATH=$PATH"
+           which installer || true
+           ls -l /usr/sbin/installer || true
+
       - name: Set up Python 
         uses: actions/setup-python@v6
         with:
