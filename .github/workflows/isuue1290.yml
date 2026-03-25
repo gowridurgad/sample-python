@@ -10,7 +10,7 @@ jobs:
 
     steps:
       - uses: actions/checkout@v5
-      - name: Prepare hostedtoolcache (rare, not recommended)
+      - name: Prepare hostedtoolcache 
         run: |
           sudo mkdir -p /Users/runner/hostedtoolcache
           sudo chown $(whoami):$(id -gn) /Users/runner/hostedtoolcache
