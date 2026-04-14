@@ -1,0 +1,19 @@
+name: c2c-actions-support
+on:
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v6
+
+      - name: Set up python
+        uses: actions/setup-python@v6
+        with:
+         
+    
+
+    
