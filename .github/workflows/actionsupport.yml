@@ -12,6 +12,10 @@ jobs:
 
       - name: Set up python
         uses: actions/setup-python@v6
+      - name:  python version
+        run: python --version
+
+        
    
          
     
