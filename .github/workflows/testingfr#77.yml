@@ -1,43 +1,41 @@
-name: Test pip-install dotenv - exact reproduction
+name: Reproduce setup-python pip-install issue
 
 on:
   workflow_dispatch:
 
 jobs:
-  test-exact-scenario:
+  reproduce:
     runs-on: ubuntu-latest
+
     steps:
-      - name: Setup Python (exactly like nathanblair)
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Python with pip-install
         uses: actions/setup-python@v6
         with:
-          python-version: 3.11
+          python-version: "3.12"
           pip-install: dotenv
 
-      - name: Test - Direct Python import (exactly what they tried)
+      - name: Verify Python and pip
         run: |
-          python -c "from dotenv import find_dotenv, load_dotenv, set_key, get_key; print('SUCCESS: All imports worked!')"
-
-      - name: Test - With python3
-        run: |
-          python3 -c "from dotenv import find_dotenv, load_dotenv, set_key, get_key; print('SUCCESS: All imports worked!')"
-
-      - name: Test - In a simple script
-        run: |
-          cat > test.py << 'EOF'
-          from dotenv import find_dotenv, load_dotenv, set_key, get_key
-          print('SUCCESS: Script imports worked!')
-          EOF
-          python test.py
-
-      - name: Debug - Show what's installed
-        run: |
-          echo "=== Python location ==="
-          which python
           python --version
-          echo ""
-          echo "=== Installed packages ==="
-          python -m pip list | grep dotenv
-          echo ""
-          echo "=== Try importing ==="
-          python -c "import dotenv; print(f'dotenv location: {dotenv.__file__}')"
-          python -c "from dotenv import find_dotenv; print('find_dotenv imported successfully')"
+          pip --version
+          which python
+          which pip
+
+      - name: Show installed packages
+        run: |
+          pip list
+
+      - name: Create test script
+        run: |
+          cat <<'EOF' > test.py
+          from dotenv import find_dotenv, load_dotenv, set_key, get_key
+
+          print("dotenv import succeeded")
+          EOF
+
+      - name: Run test script
+        run: |
+          python test.py
