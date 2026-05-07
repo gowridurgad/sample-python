@@ -1,58 +1,42 @@
-name: Test pip-install dotenv issue
+name: Test pip-install dotenv - exact reproduction
 
 on:
   workflow_dispatch:
 
 jobs:
-  test-scenarios:
+  test-exact-scenario:
     runs-on: ubuntu-latest
     steps:
-      - name: Setup Python with pip-install
+      - name: Setup Python (exactly like nathanblair)
         uses: actions/setup-python@v6
         with:
-          python-version: '3.11'
           pip-install: dotenv
 
-      - name: Create tool script with shebang (mimics user's setup)
+      - name: Test - Direct Python import (exactly what they tried)
         run: |
-          cat > tool << 'EOF'
-          #!/usr/bin/env python3
-          from dotenv import find_dotenv, load_dotenv, set_key, get_key
-          print("SUCCESS: Imports worked!")
-          EOF
-          chmod +x tool
+          python -c "from dotenv import find_dotenv, load_dotenv, set_key, get_key; print('SUCCESS: All imports worked!')"
 
-      - name: Debug - Check installations
+      - name: Test - With python3
         run: |
-          echo "=== Which Python ==="
+          python3 -c "from dotenv import find_dotenv, load_dotenv, set_key, get_key; print('SUCCESS: All imports worked!')"
+
+      - name: Test - In a simple script
+        run: |
+          cat > test.py << 'EOF'
+          from dotenv import find_dotenv, load_dotenv, set_key, get_key
+          print('SUCCESS: Script imports worked!')
+          EOF
+          python test.py
+
+      - name: Debug - Show what's installed
+        run: |
+          echo "=== Python location ==="
           which python
-          which python3
+          python --version
           echo ""
-          echo "=== Python in setup-python ==="
-          python -c "import sys; print(sys.executable)"
+          echo "=== Installed packages ==="
           python -m pip list | grep dotenv
           echo ""
-          echo "=== Python3 (system) ==="
-          python3 -c "import sys; print(sys.executable)"
-          python3 -m pip list | grep dotenv || echo "dotenv NOT found in python3"
-
-      - name: Test 1 - Direct execution (./tool)
-        id: test1
-        run: ./tool
-        continue-on-error: true
-
-      - name: Test 2 - With python command
-        id: test2
-        run: python ./tool
-        continue-on-error: true
-
-      - name: Test 3 - With python3 command
-        id: test3
-        run: python3 ./tool
-        continue-on-error: true
-
-      - name: Summary
-        run: |
-          echo "Test 1 (./tool): ${{ steps.test1.outcome }}"
-          echo "Test 2 (python ./tool): ${{ steps.test2.outcome }}"
-          echo "Test 3 (python3 ./tool): ${{ steps.test3.outcome }}"
+          echo "=== Try importing ==="
+          python -c "import dotenv; print(f'dotenv location: {dotenv.__file__}')"
+          python -c "from dotenv import find_dotenv; print('find_dotenv imported successfully')"
