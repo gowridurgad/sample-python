@@ -1,22 +1,58 @@
-name: testingfr#79
+name: Test pip-install dotenv issue
+
 on:
   workflow_dispatch:
+
 jobs:
-  build:
+  test-scenarios:
     runs-on: ubuntu-latest
-    # strategy:
-    #   fail-fast: false
-    #   matrix:
-    #     os: [windows-2025, ubuntu-latest, macos-latest, macos-13]       
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v6
-      - name: Set up python
-        # uses: actions/setup-python@main
+      - name: Setup Python with pip-install
         uses: actions/setup-python@v6
         with:
-      
-            python-version:  '3.11'
-            pip-install: dotenv
-   
-           
+          python-version: '3.11'
+          pip-install: dotenv
+
+      - name: Create tool script with shebang (mimics user's setup)
+        run: |
+          cat > tool << 'EOF'
+          #!/usr/bin/env python3
+          from dotenv import find_dotenv, load_dotenv, set_key, get_key
+          print("SUCCESS: Imports worked!")
+          EOF
+          chmod +x tool
+
+      - name: Debug - Check installations
+        run: |
+          echo "=== Which Python ==="
+          which python
+          which python3
+          echo ""
+          echo "=== Python in setup-python ==="
+          python -c "import sys; print(sys.executable)"
+          python -m pip list | grep dotenv
+          echo ""
+          echo "=== Python3 (system) ==="
+          python3 -c "import sys; print(sys.executable)"
+          python3 -m pip list | grep dotenv || echo "dotenv NOT found in python3"
+
+      - name: Test 1 - Direct execution (./tool)
+        id: test1
+        run: ./tool
+        continue-on-error: true
+
+      - name: Test 2 - With python command
+        id: test2
+        run: python ./tool
+        continue-on-error: true
+
+      - name: Test 3 - With python3 command
+        id: test3
+        run: python3 ./tool
+        continue-on-error: true
+
+      - name: Summary
+        run: |
+          echo "Test 1 (./tool): ${{ steps.test1.outcome }}"
+          echo "Test 2 (python ./tool): ${{ steps.test2.outcome }}"
+          echo "Test 3 (python3 ./tool): ${{ steps.test3.outcome }}"
