@@ -33,6 +33,7 @@ jobs:
           pip list
 
       - name: Create test script
+        shell: bash
         run: |
           cat <<'EOF' > test.py
           from dotenv import find_dotenv, load_dotenv, set_key, get_key
