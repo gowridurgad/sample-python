@@ -34,7 +34,7 @@ jobs:
       - name: Check ownership
         run: ls -ld /github/home
       - name: Set up Python
-        uses: actions/setup-python@v6
+        uses: priyagupta108/setup-python@pip-root-user-warning
         with:
           python-version: '3.9.18'
 
