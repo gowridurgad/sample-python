@@ -16,7 +16,7 @@ jobs:
           mkdir -p "${{ runner.tool_cache }}"
 
       - name: Set up python
-        uses: gowridurgad/setup-python@testing-376
+        uses: gowridurgad/setup-python@testing-376-377
         with:
           python-version: '3.13.7'
       
