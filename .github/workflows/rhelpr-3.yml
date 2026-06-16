@@ -1,0 +1,35 @@
+name: rhel-test-cache-pip-default
+
+
+
+on:
+  workflow_dispatch:
+
+
+jobs:
+  cache-pip-default:
+    name: pip cache (default path) on ${{ matrix.os }}
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [production-Partner-RHEL9-X64, production-Partner-RHEL10-X64, ubuntu-latest, windows-latest, macos-latest]
+    steps:
+      - uses: actions/checkout@v6
+
+      - name: Set up Python with pip cache (no cache-dependency-path)
+        id: setup-python
+        uses: priyagupta108/setup-python@add-rhel-support
+        with:
+          python-version: '3.14'
+          cache: pip
+
+      - name: Report cache-hit
+        run: echo "cache-hit = ${{ steps.setup-python.outputs.cache-hit }}"
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install -r requirements.txt
+          python -m pip install -e .
+  
