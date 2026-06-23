@@ -5,9 +5,8 @@ on:
  
 
 jobs:
-  # ─── Baseline: released version WITHOUT the PR fix ──────────────
-  baseline-without-pr:
-    name: main- ${{ matrix.python-version }}
+  baseline-with-old-pip:
+    name: baseline - py${{ matrix.python-version }}
     runs-on: windows-latest
     strategy:
       fail-fast: false
@@ -16,24 +15,28 @@ jobs:
     steps:
       - uses: actions/checkout@v6
 
-      - name: Setup Python with cache (released action - no fix)
+      - uses: actions/setup-python@v6
+        with:
+          python-version: ${{ matrix.python-version }}
+
+      - name: Pin pip to a stderr-warning version
+        run: python -m pip install --force-reinstall "pip==22.0.2"
+
+      - name: Setup Python with cache (baseline @v5)
+        id: setup
+        continue-on-error: true
         uses: actions/setup-python@v6
         with:
           python-version: ${{ matrix.python-version }}
           cache: 'pip'
-          cache-dependency-path: requirements.txt
 
-      - name: Verify pip cache directory
+      - name: Report
         shell: pwsh
         run: |
-          $cacheDir = pip cache dir
-          Write-Host "Pip cache dir: $cacheDir"
+          Write-Host "Outcome: ${{ steps.setup.outcome }}"
 
-      - run: pip install -r requirements.txt
-
-  # ─── With PR #1040 applied ──────────────────────────────────────
-  test-with-pr:
-    name: With PR #1040 - ${{ matrix.python-version }}
+  with-pr-1040:
+    name: with-PR - py${{ matrix.python-version }}
     runs-on: windows-latest
     strategy:
       fail-fast: false
@@ -42,17 +45,22 @@ jobs:
     steps:
       - uses: actions/checkout@v6
 
+      - uses: actions/setup-python@v6
+        with:
+          python-version: ${{ matrix.python-version }}
+
+      - name: Pin pip to a stderr-warning version
+        run: python -m pip install --force-reinstall "pip==22.0.2"
+
       - name: Setup Python with cache (PR branch)
+        id: setup
+        continue-on-error: true
         uses: priyagupta108/setup-python@fix-windows-pip-cache
         with:
           python-version: ${{ matrix.python-version }}
           cache: 'pip'
-          cache-dependency-path: requirements.txt
 
-      - name: Verify pip cache directory
+      - name: Report
         shell: pwsh
         run: |
-          $cacheDir = pip cache dir
-          Write-Host "Pip cache dir: $cacheDir"
-
-      - run: pip install -r requirements.txt
+          Write-Host "Outcome: ${{ steps.setup.outcome }}"
