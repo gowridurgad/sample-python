@@ -1,0 +1,58 @@
+name: Test PR 1040 - Windows pip cache fix
+
+on:
+  workflow_dispatch:
+ 
+
+jobs:
+  # ─── Baseline: released version WITHOUT the PR fix ──────────────
+  baseline-without-pr:
+    name: main- ${{ matrix.python-version }}
+    runs-on: windows-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        python-version: ['3.12', '3.14']
+    steps:
+      - uses: actions/checkout@v6
+
+      - name: Setup Python with cache (released action - no fix)
+        uses: actions/setup-python@v6
+        with:
+          python-version: ${{ matrix.python-version }}
+          cache: 'pip'
+          cache-dependency-path: requirements.txt
+
+      - name: Verify pip cache directory
+        shell: pwsh
+        run: |
+          $cacheDir = pip cache dir
+          Write-Host "Pip cache dir: $cacheDir"
+
+      - run: pip install -r requirements.txt
+
+  # ─── With PR #1040 applied ──────────────────────────────────────
+  test-with-pr:
+    name: With PR #1040 - ${{ matrix.python-version }}
+    runs-on: windows-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        python-version: ['3.12', '3.14']
+    steps:
+      - uses: actions/checkout@v6
+
+      - name: Setup Python with cache (PR branch)
+        uses: priyagupta108/setup-python@fix-windows-pip-cache
+        with:
+          python-version: ${{ matrix.python-version }}
+          cache: 'pip'
+          cache-dependency-path: requirements.txt
+
+      - name: Verify pip cache directory
+        shell: pwsh
+        run: |
+          $cacheDir = pip cache dir
+          Write-Host "Pip cache dir: $cacheDir"
+
+      - run: pip install -r requirements.txt
