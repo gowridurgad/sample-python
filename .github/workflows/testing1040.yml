@@ -35,32 +35,4 @@ jobs:
         run: |
           Write-Host "Outcome: ${{ steps.setup.outcome }}"
 
-  with-pr-1040:
-    name: with-PR - py${{ matrix.python-version }}
-    runs-on: windows-latest
-    strategy:
-      fail-fast: false
-      matrix:
-        python-version: ['3.12', '3.14']
-    steps:
-      - uses: actions/checkout@v6
-
-      - uses: actions/setup-python@v6
-        with:
-          python-version: ${{ matrix.python-version }}
-
-      - name: Pin pip to a stderr-warning version
-        run: python -m pip install --force-reinstall "pip==22.0.2"
-
-      - name: Setup Python with cache (PR branch)
-        id: setup
-        continue-on-error: true
-        uses: priyagupta108/setup-python@fix-windows-pip-cache
-        with:
-          python-version: ${{ matrix.python-version }}
-          cache: 'pip'
-
-      - name: Report
-        shell: pwsh
-        run: |
-          Write-Host "Outcome: ${{ steps.setup.outcome }}"
+  
