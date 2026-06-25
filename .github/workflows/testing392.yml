@@ -1,5 +1,7 @@
 name: test pip root user warning repro
 on:
+  workflow_dispatch:
+    
 
 
 jobs:
