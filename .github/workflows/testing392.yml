@@ -1,6 +1,6 @@
 name: test pip root user warning repro
 on:
-  push:
+
 
 jobs:
   repro:
