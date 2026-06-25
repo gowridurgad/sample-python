@@ -1,8 +1,6 @@
 name: Test 1217 error - container
 on:
-  push:
-    branches:
-      - main
+
   workflow_dispatch:
 jobs:
   test1:
