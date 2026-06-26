@@ -1,94 +1,73 @@
-name: Reproduce 1087
+name: Test 1309
 
 on:
+  
   workflow_dispatch:
 
 jobs:
-  job1-ubuntu-24-container:
-    name: 1️⃣  Ubuntu 24.04 container / Python 3.8
-    runs-on: [self-hosted]
-    container: ubuntu:24.04
+  latest-latest-in-practice-26-on-host-and-in-container:
+    runs-on: ubuntu-latest
+    container: ubuntu:latest
     steps:
-      - name: Show OS info
+      - name: Show host / container info
         run: |
           echo "=== /etc/os-release ==="
-          cat /etc/os-release
-          echo "=== glibc ==="
-          ldd --version | head -1
-
-      - name: Ensure sudo is installed
-        run: |
-          if ! command -v sudo &> /dev/null; then
-            apt-get update && apt-get install -y sudo
-          fi
-
-      - name: Fix permissions
-        run: sudo chown -R $(whoami) /github/home
-
+          cat /etc/os-release || true
+          echo "=== uname -a ==="
+          uname -a
+          echo "=== whoami ==="
+          whoami
+          echo "=== RUNNER_OS / RUNNER_ARCH ==="
+          echo "RUNNER_OS=$RUNNER_OS"
+          echo "RUNNER_ARCH=$RUNNER_ARCH"
       - uses: actions/checkout@v6
 
-      - name: Clear tool cache (force cache miss for clean repro)
+      - name: Clear pre-mounted tool cache
         run: |
-          rm -rf /__w/_tool/Python
-          echo "Tool cache cleared:"
-          ls -la /__w/_tool/ || true
-
-      - uses: actions/setup-python@v5
+          echo "Before:"
+          ls /__t/Python/ || echo "no Python dir"
+          rm -rf /__t/Python
+          echo "After:"
+          ls /__t/Python/ || echo "cleared"
+      - uses: actions/setup-python@v6
         with:
-          python-version: '3.8'
-
-      - name: Show what was cached
-        run: |
-          echo "=== Tool cache contents after install ==="
-          ls -la /__w/_tool/Python/
-          ls -la /__w/_tool/Python/*/x64/ | head -20
+          python-version: '3.11'
 
       - name: pip install --upgrade pip (job 1 — should succeed)
         run: python -m pip install --upgrade pip
-
-  job2-ubuntu-20-container:
-    name: 2️⃣  Ubuntu 20.04 container / Python 3.8 (BUG surfaces here)
-    needs: job1-ubuntu-24-container
+        
+  test-26-on-host-and-24-in-container:
     runs-on: [self-hosted]
-    container: ubuntu:20.04
+    container: ubuntu:24.04
     steps:
-      - name: Show OS info
+      - name: Show host / container info
         run: |
           echo "=== /etc/os-release ==="
-          cat /etc/os-release
-          echo "=== glibc ==="
-          ldd --version | head -1
-
-      - name: Ensure sudo is installed
-        run: |
-          if ! command -v sudo &> /dev/null; then
-            apt-get update && apt-get install -y sudo
-          fi
-
-      - name: Fix permissions
-        run: sudo chown -R $(whoami) /github/home
-
+          cat /etc/os-release || true
+          echo "=== uname -a ==="
+          uname -a
+          echo "=== whoami ==="
+          whoami
+          echo "=== RUNNER_OS / RUNNER_ARCH ==="
+          echo "RUNNER_OS=$RUNNER_OS"
+          echo "RUNNER_ARCH=$RUNNER_ARCH"
       - uses: actions/checkout@v6
 
-      - name: Inspect tool cache populated by job 1
+      - name: Ensure Sudo is Installed
         run: |
-          echo "=== Tool cache contents seen by job 2 ==="
-          ls -la /__w/_tool/Python/ || echo "(no Python dir)"
-          ls -la /__w/_tool/Python/*/x64/ 2>/dev/null | head -20 || true
-
-      - uses: actions/setup-python@v5
+          if ! command -v sudo &> /dev/null; then
+            echo "sudo could not be found. Installing..."
+            apt-get update && apt-get install -y sudo
+          fi
+   
+      - name: Clear tool cache
+        run: |
+          rm -rf /__w/_tool/Python
+          echo "Verify cleared:"
+          ls -la /__w/_tool/
+      - uses: actions/setup-python@v6
         with:
-          python-version: '3.8'
+          python-version: '3.13'
 
-      - name: Show where Python came from
-        run: |
-          which python
-          python --version
-          echo "pythonLocation=$pythonLocation"
-
-      # 👇 The reproducer step from the issue.
-      # Expected to FAIL with either:
-      #   - "SSLError: Can't connect to HTTPS URL because the SSL module is not available"
-      #   - "version `GLIBC_2.34' not found"
-      - name: pip install --upgrade pip (job 2 — expected to FAIL)
+      - name: pip install --upgrade pip 
         run: python -m pip install --upgrade pip
