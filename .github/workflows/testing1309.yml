@@ -38,7 +38,7 @@ jobs:
         
   test-26-on-host-and-24-in-container:
     runs-on: [self-hosted]
-    container: ubuntu:24.04
+    
     steps:
       - name: Show host / container info
         run: |
