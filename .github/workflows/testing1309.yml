@@ -1,40 +1,29 @@
-name: Testing-1309
+
+name: Testing-1087
+
 
 on:
   workflow_dispatch:
 
 jobs:
-  latest-latest-in-practice-26-on-host-and-in-container:
-    runs-on: ubuntu-latest
-    container: ubuntu:latest
+  ubuntu-24-python38:
+    name: Ubuntu 24.04 / Python 3.8
+    runs-on: self-hosted
     steps:
-      - name: Show host / container info
-        run: |
-          echo "=== /etc/os-release ==="
-          cat /etc/os-release || true
-          echo "=== uname -a ==="
-          uname -a
-          echo "=== whoami ==="
-          whoami
-          echo "=== RUNNER_OS / RUNNER_ARCH ==="
-          echo "RUNNER_OS=$RUNNER_OS"
-          echo "RUNNER_ARCH=$RUNNER_ARCH"
-      - uses: actions/checkout@v6
-
-      - name: Clear pre-mounted tool cache
-        run: |
-          echo "Before:"
-          ls /__t/Python/ || echo "no Python dir"
-          rm -rf /__t/Python
-          echo "After:"
-          ls /__t/Python/ || echo "cleared"
-      - uses: gowridurgad/setup-python@testing-1087
+      - name: Set up Python 3.8
+        uses: actions/setup-python@v5
         with:
-          python-version: '3.13'
+          python-version: '3.8'
 
-      - name: Verify Python
-        run: |
-          which python
-          python --version
-          python -c "import sys, platform; print(sys.executable); print(platform.platform())"
- 
+  ubuntu-20-python38:
+    name: Ubuntu 20.04 / Python 3.8
+    needs: ubuntu-24-python38
+    runs-on: self-hosted
+    steps:
+      - name: Set up Python 3.8
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.8'
+
+      - name: Upgrade pip
+        run: python -m pip install --upgrade pip
