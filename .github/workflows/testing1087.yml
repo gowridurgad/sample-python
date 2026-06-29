@@ -24,7 +24,7 @@ jobs:
       
 
       - name: Setup Python 3.12
-        uses: actions/setup-python@v6
+        uses: gowridurgad/setup-python@testing-1048
         with:
           python-version: "3.12"
       - name: Upgrade pip
@@ -56,7 +56,7 @@ jobs:
      
 
       - name: Setup Python 3.12
-        uses: actions/setup-python@v6
+        uses: gowridurgad/setup-python@testing-1048
         with:
           python-version: "3.12"
 
