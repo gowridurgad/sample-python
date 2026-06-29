@@ -10,23 +10,16 @@ jobs:
     container:
       image: ubuntu:24.04
     steps:
-      - name: Install OS prereqs (libssl needed by Python at install time)
-        run: |
-          apt-get update
-          apt-get install -y --no-install-recommends \
-            ca-certificates curl git sudo libssl-dev
 
-      - name: Fix pip cache permissions
-        run: sudo chown -R $(whoami) /github/home
 
       - uses: actions/checkout@v6
 
-      - name: Setup Python 3.11 (v6 — bug expected)
+      - name: Setup Python 3.11
         uses: actions/setup-python@v6
         with:
           python-version: "3.11"
 
-      - name: Upgrade pip (job 1 should succeed)
+      - name: Upgrade pip 
         run: python -m pip install --upgrade pip
 
   ubuntu-24-second:
@@ -36,25 +29,16 @@ jobs:
     container:
       image: ubuntu:20.04
     steps:
-      - name: Install OS prereqs (libssl needed by Python at install time)
-        run: |
-          apt-get update
-          apt-get install -y --no-install-recommends \
-            ca-certificates curl git sudo libssl-dev
-
-      - name: Fix pip cache permissions
-        run: sudo chown -R $(whoami) /github/home
+      
 
       - uses: actions/checkout@v6
 
-      - name: Show tool cache BEFORE setup (should contain 3.8.x from job 1)
-        run: ls -la /__w/_tool/Python/
 
-      - name: Setup Python 3.11 (v6 — should hit job 1's cache)
+      - name: Setup Python 3.11 
         uses: actions/setup-python@v6
         with:
           python-version: "3.11"
 
-      # 👇 THIS is the step where you should see THE issue's exact error
-      - name: Upgrade pip (this is where #1087 manifests)
+
+      - name: Upgrade pip 
         run: python -m pip install --upgrade pip
