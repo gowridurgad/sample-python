@@ -10,60 +10,51 @@ jobs:
     container:
       image: ubuntu:20.04
     steps:
-      - name: Install OS prereqs
+      - name: Install OS prereqs (libssl needed by Python at install time)
         run: |
           apt-get update
           apt-get install -y --no-install-recommends \
-            ca-certificates curl git sudo \
-            libssl-dev libffi-dev zlib1g
+            ca-certificates curl git sudo libssl-dev
 
       - name: Fix pip cache permissions
         run: sudo chown -R $(whoami) /github/home
 
       - uses: actions/checkout@v6
 
-      - name: Setup Python 3.11
-        # uses: gowridurgad/setup-python@testing-1087
-        uses: actions/setup-python@v6      
+      - name: Setup Python 3.8 (v6 — bug expected)
+        uses: actions/setup-python@v6
         with:
-          python-version: "3.11"
+          python-version: "3.8"
 
-      - name: Show cache layout after job 1
-        run: ls -la /__w/_tool/Python/
-
-      - name: Upgrade pip
+      - name: Upgrade pip (job 1 should succeed)
         run: python -m pip install --upgrade pip
 
   ubuntu-24-second:
-    name: Step 2 - Ubuntu 24.04 container
+    name: Step 2 - Ubuntu 24.04 container (BUG SURFACES HERE)
     needs: ubuntu-20-first
     runs-on: self-hosted
     container:
       image: ubuntu:24.04
     steps:
-      - name: Install OS prereqs
+      - name: Install OS prereqs (libssl needed by Python at install time)
         run: |
           apt-get update
           apt-get install -y --no-install-recommends \
-            ca-certificates curl git sudo \
-            libssl-dev libffi-dev zlib1g
+            ca-certificates curl git sudo libssl-dev
 
       - name: Fix pip cache permissions
         run: sudo chown -R $(whoami) /github/home
 
       - uses: actions/checkout@v6
 
-      - name: Show cache layout BEFORE job 2
+      - name: Show tool cache BEFORE setup (should contain 3.8.x from job 1)
         run: ls -la /__w/_tool/Python/
 
-      - name: Setup Python 3.11
-        uses: actions/setup-python@v6      
-        # uses: gowridurgad/setup-python@testing-1087
+      - name: Setup Python 3.8 (v6 — should hit job 1's cache)
+        uses: actions/setup-python@v6
         with:
-          python-version: "3.11"
+          python-version: "3.8"
 
-      - name: Show cache layout AFTER job 2
-        run: ls -la /__w/_tool/Python/
-
-      - name: Upgrade pip
+      # 👇 THIS is the step where you should see THE issue's exact error
+      - name: Upgrade pip (this is where #1087 manifests)
         run: python -m pip install --upgrade pip
