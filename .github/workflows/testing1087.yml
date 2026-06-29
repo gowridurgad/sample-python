@@ -13,13 +13,15 @@ jobs:
 
     steps:
       - uses: actions/checkout@v6
-      - name: Clear pre-mounted tool cache
+      - name: Ensure Sudo is Installed
         run: |
-          echo "Before:"
-          ls /__t/Python/ || echo "no Python dir"
-          rm -rf /__t/Python
-          echo "After:"
-          ls /__t/Python/ || echo "cleared"
+          if ! command -v sudo &> /dev/null; then
+            echo "sudo could not be found. Installing..."
+            apt-get update && apt-get install -y sudo
+          fi
+      - name: Fix pip cache permissions
+        run: sudo chown -R $(whoami) /github/home 
+      
 
       - name: Setup Python 3.8
         uses: actions/setup-python@v5
