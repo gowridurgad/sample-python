@@ -35,7 +35,7 @@ jobs:
 
   ubuntu-24-second:
     name: Step 2 - Ubuntu 20.04 container
-    runs-on: ubuntu-latest
+    runs-on: self-hosted
     needs: ubuntu-20-first
 
     container:
