@@ -11,7 +11,13 @@ jobs:
       image: ubuntu:24.04
     steps:
 
-
+      - name: Clear Python tool cache from previous runs
+        run: |
+          echo "Before:"
+          ls -la /__w/_tool/Python/ 2>/dev/null || echo "(no Python dir)"
+          rm -rf /__w/_tool/Python
+          echo "After:"
+          ls -la /__w/_tool/ 2>/dev/null
       - uses: actions/checkout@v6
 
       - name: Setup Python 3.11
