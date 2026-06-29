@@ -41,10 +41,26 @@ jobs:
 
     steps:
       - uses: actions/checkout@v6
-      - name: Install required tools
+      - uses: actions/checkout@v6
+
+      - name: Ensure Sudo is Installed
         run: |
-          apt-get update
-          apt-get install -y curl git ca-certificates tar bash
+          if ! command -v sudo &> /dev/null; then
+            echo "sudo could not be found. Installing..."
+            apt-get update && apt-get install -y sudo
+          fi
+      - name: Fix pip cache permissions
+        run: sudo chown -R $(whoami) /github/home
+      # - name: Clear cache
+      #   run: |
+      #       rm -rf "${{ runner.tool_cache }}" "${{ runner.tool_cache }}.old"
+      #       mkdir -p "${{ runner.tool_cache }}"
+      - name: Clear tool cache
+        run: |
+          rm -rf /__w/_tool/Python
+          echo "Verify cleared:"
+          ls -la /__w/_tool/
+     
 
       - name: Setup Python 3.8
         uses: actions/setup-python@v5
