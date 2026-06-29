@@ -6,7 +6,7 @@ on:
 jobs:
   ubuntu-20-first:
     name: Step 1 - Ubuntu 20.04 container
-    runs-on: ubuntu-latest
+    runs-on: self-hosted
 
     container:
       image: ubuntu:20.04
