@@ -5,11 +5,11 @@ on:
 
 jobs:
   ubuntu-20-first:
-    name: Step 1 - Ubuntu 24.04  container
+    name: Step 1 - Ubuntu 20.04  container
     runs-on: self-hosted
 
     container:
-      image: ubuntu:24.04 
+      image: ubuntu:20.04 
 
     steps:
       - uses: actions/checkout@v6
@@ -35,12 +35,12 @@ jobs:
      
 
   ubuntu-24-second:
-    name: Step 2 - Ubuntu 20.04 container
+    name: Step 2 - Ubuntu 24.04 container
     runs-on: self-hosted
     needs: ubuntu-20-first
 
     container:
-      image: ubuntu:20.04 
+      image: ubuntu:24.04
 
     steps:
       - uses: actions/checkout@v6
