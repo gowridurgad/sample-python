@@ -8,11 +8,11 @@ jobs:
     name: Step 1 - Ubuntu 20.04 container
     runs-on: self-hosted
 
-    # container:
-    #   image: ubuntu:20.04
+    container:
+      image: ubuntu:20.04
 
     steps:
-     
+      - uses: actions/checkout@v6
 
       - name: Setup Python 3.8
         uses: actions/setup-python@v5
@@ -33,6 +33,7 @@ jobs:
       image: ubuntu:24.04
 
     steps:
+      - uses: actions/checkout@v6
       - name: Install required tools
         run: |
           apt-get update
