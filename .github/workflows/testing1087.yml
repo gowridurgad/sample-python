@@ -13,6 +13,13 @@ jobs:
 
     steps:
       - uses: actions/checkout@v6
+      - name: Clear pre-mounted tool cache
+        run: |
+          echo "Before:"
+          ls /__t/Python/ || echo "no Python dir"
+          rm -rf /__t/Python
+          echo "After:"
+          ls /__t/Python/ || echo "cleared"
 
       - name: Setup Python 3.8
         uses: actions/setup-python@v5
