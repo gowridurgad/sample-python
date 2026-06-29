@@ -12,10 +12,7 @@ jobs:
     #   image: ubuntu:20.04
 
     steps:
-      - name: Install required tools
-        run: |
-          apt-get update
-          DEBIAN_FRONTEND=noninteractive apt-get install -y curl git ca-certificates tar bash
+     
 
       - name: Setup Python 3.8
         uses: actions/setup-python@v5
